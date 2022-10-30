@@ -85,7 +85,7 @@ There are multiple types of instructions:
   |`010` | `LSH`              | Logical shift (left if positive, right if negative)    | `{D} <- {S1} <</>> {S2}`
   |`011` | `ASH`              | Arithmetic shift (left if positive, right if negative) | `{D} <- {S1} <</>> {S2} (signed)`
   |`100` | `AND`              | Logical AND                                            | `{D} <- {S1} & {S2}`
-  |`101` | `OR`               | Logical OR                                             | `{D} <- {S1} | {S2}`
+  |`101` | `OR`               | Logical OR                                             | `{D} <- {S1} \| {S2}`
   |`110` | `XOR`              | Logical XOR                                            | `{D} <- {S1} ^ {S2}`
   |`111` | `CND`              | Conditions (see below)                                 | -
 
@@ -121,9 +121,10 @@ There are multiple types of instructions:
   |`010` | `LSHI`             | Logical shift (left if positive, right if negative)    | `{D} <- {S} <</>> I`
   |`011` | `ASHI`             | Arithmetic shift (left if positive, right if negative) | `{D} <- {S} <</>> I (signed)`
   |`100` | `ANDI`             | Logical AND                                            | `{D} <- {S} & I`
-  |`101` | `ORI`              | Logical OR                                             | `{D} <- {S} | I`
+  |`101` | `ORI`              | Logical OR                                             | `{D} <- {S} \| I`
   |`110` | `XORI`             | Logical XOR                                            | `{D} <- {S} ^ I`
   |`111` | `LDH`              | Move immediate to high 14 bits and source to the rest  | `{D} <- {I, {S}[17..0]}`
+  
   _Immediate value is sign extended to 32 bits._
   _If `LDH` is passed label as an argument, immediate value is high 13 bits of address_
 
@@ -148,39 +149,51 @@ There are multiple types of instructions:
     |`31..28`|  `27..24`   |     `23..4`     |  `3..0`   |
     |--------|-------------|-----------------|-----------|
     | `1010` | Destination | Immediate value | Condition |
+
     _If passed label as an argument, immediate value is low 19 bits of address_
+
   + `MLTU` - multiplies two unsigned 32-bit integers. Result is in `HI..LO` pair
     | `31..25`  | `24..21` | `20..17` | `16..4`   |  `3..0`   |
     |-----------|----------|----------|-----------|-----------|
     | `1011000` | Source 1 | Source 2 | Unused?.. | Condition |
+
   + `MLTS` - multiplies two signed 32-bit integers. Result is in `HI..LO` pair
     | `31..25`  | `24..21` | `20..17` | `16..4`   |  `3..0`   |
     |-----------|----------|----------|-----------|-----------|
     | `1011001` | Source 1 | Source 2 | Unused?.. | Condition |
+
   + `DIVU` - divides two unsigned 32-bit integers. Quotient is in `LO` register, remainder is in `HI` register
     | `31..25`  | `24..21` | `20..17` | `16..4`   |  `3..0`   |
     |-----------|----------|----------|-----------|-----------|
     | `1011010` | Source 1 | Source 2 | Unused?.. | Condition |
+
   + `DIVS` - divides two signed 32-bit integers. Quotient is in `LO` register, remainder is in `HI` register
     | `31..25`  | `24..21` | `20..17` | `16..4`   |  `3..0`   |
     |-----------|----------|----------|-----------|-----------|
     | `1011011` | Source 1 | Source 2 | Unused?.. | Condition |
+
     _Division takes 11 cycles, so for the next 11 instructions you should not expect results in `HI..LO` registers._
     _You still can perform multiplication at that time though, just don't do it right at the 11th instruction after `DIV`_
+
   + `MVSU` - moves value from user register to supervisor register
     | `31..25`  |  `24..21`   | `20..17` | `16..4`   |  `3..0`   |
     |-----------|-------------|----------|-----------|-----------|
     | `1011100` | Destination |  Source  | Unused?.. | Condition |
+
     _Name because in assembly its written like `MVSU sR1, uR2` and moves value from user `R2` to supervisor `R1`_
+
   + `MVUS` - moves value from supervisor register to user register
     | `31..25`  |  `24..21`   | `20..17` | `16..4`   |  `3..0`   |
     |-----------|-------------|----------|-----------|-----------|
     | `1011101` | Destination |  Source  | Unused?.. | Condition |
+
     _Name because in assembly its written like `MVUS uR1, sR2` and moves value from supervisor `R2` to user `R1`_
+
   + `MVHI` - moves value from `HI` register to some other register
     | `31..25`  |  `24..21`   | `20..4`   |  `3..0`   |
     |-----------|-------------|-----------|-----------|
     | `1011110` | Destination | Unused?.. | Condition |
+
   + `MVLO` - moves value from `LO` register to some other register
     | `31..25`  |  `24..21`   | `20..4`   |  `3..0`   |
     |-----------|-------------|-----------|-----------|
