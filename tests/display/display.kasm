@@ -1,0 +1,96 @@
+lcd_init:
+    SW (SP), LR
+    SUBI SP, 4
+
+    ADDI LR, PC, 4
+    JMP lcd_waitBusy
+
+    LDI R1, 0x38 ; Function set: 8-bit, 2 Lines, 5x7 Dots
+    ADDI LR, PC, 4
+    JMP lcd_cmd
+
+    LDI R1, 0x0C ; Display on, Cursor off
+    ADDI LR, PC, 4
+    JMP lcd_cmd
+
+    LDI R1, 0x01 ; Display Clear
+    ADDI SP, 4
+    LW LR, (SP)
+    JMP lcd_cmd
+
+
+
+lcd_waitBusy:
+    LBU R1, (CPU_SPEED)
+    CMP R1, CPU_SPEED_MAX
+    MOV?NZ PC, LR
+
+    LDI R1, 0b010
+    SB (LCD_CTRL), R1
+    NOP
+_lcd_waitBusy_loop1:
+    LDI R1, 0b110
+    SB (LCD_CTRL), R1
+    LDI R1, 1000
+_lcd_waitBusy_loop2:
+    SUBI R1, 1
+    JMP?NZ _lcd_waitBusy_loop2
+
+    LBU R1, (LCD_DATA)
+    ANDI R1, 0x80
+    SB?Z (LCD_CTRL), R0
+    MOV?Z PC, LR
+
+    LDI R1, 0b010
+    SB (LCD_CTRL), R1
+    LDI R1, 1000
+_lcd_waitBusy_loop3:
+    SUBI R1, 1
+    JMP?NZ _lcd_waitBusy_loop3
+    JMP _lcd_waitBusy_loop1
+
+lcd_cmd:
+    SB (LCD_DATA), R1
+    LDI R1, 0b100
+    SB (LCD_CTRL), R1
+    LBU R1, (CPU_SPEED)
+    CMP R1, CPU_SPEED_MAX
+    JMP?NZ _lcd_cmd_skip
+
+    LDI R1, 1000
+_lcd_cmd_loop1:
+    SUBI R1, 1
+    JMP?NZ _lcd_cmd_loop1
+
+    SB (LCD_CTRL), R0
+    LDI R1, 1000
+_lcd_cmd_loop2:
+    SUBI R1, 1
+    JMP?NZ _lcd_cmd_loop2
+    JMP lcd_waitBusy
+_lcd_cmd_skip:
+    SB (LCD_CTRL), R0
+    MOV PC, LR
+
+lcd_putc:
+    SB (LCD_DATA), R1
+    LDI R1, 0b101
+    SB (LCD_CTRL), R1
+    LBU R1, (CPU_SPEED)
+    CMP R1, CPU_SPEED_MAX
+    JMP?NZ _lcd_putc_skip
+
+    LDI R1, 1000
+_lcd_putc_loop1:
+    SUBI R1, 1
+    JMP?NZ _lcd_putc_loop1
+
+    SB (LCD_CTRL), R0
+    LDI R1, 1000
+_lcd_putc_loop2:
+    SUBI R1, 1
+    JMP?NZ _lcd_putc_loop2
+    JMP lcd_waitBusy
+_lcd_putc_skip:
+    SB (LCD_CTRL), R0
+    MOV PC, LR

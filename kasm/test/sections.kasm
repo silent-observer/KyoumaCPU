@@ -1,0 +1,15 @@
+#text
+main:
+    LOAD R1, x
+    LW R2, (R1)
+    LOAD R1, y
+    LW R3, (R1)
+    ADD R2, R3
+    LOAD R1, z
+    SW (R1), R2
+    HALT
+#data
+x: DW 100
+y: DW 200
+#bss
+z: DW 0

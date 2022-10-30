@@ -1,0 +1,29 @@
+main:
+    ADDI LR, PC, 8
+    JMPL lcd_init
+    
+    LDI R1, 0x48
+    ADDI LR, PC, 8
+    JMPL lcd_putc
+
+    LDI R1, 0x65
+    ADDI LR, PC, 8
+    JMPL lcd_putc
+
+    LDI R1, 0x6C
+    ADDI LR, PC, 8
+    JMPL lcd_putc
+
+    LDI R1, 0x6C
+    ADDI LR, PC, 8
+    JMPL lcd_putc
+
+    LDI R1, 0x6F
+    ADDI LR, PC, 8
+    JMPL lcd_putc
+
+    LDI R1, 0x21
+    ADDI LR, PC, 8
+    JMPL lcd_putc
+
+    HALT

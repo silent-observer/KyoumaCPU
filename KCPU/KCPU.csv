@@ -1,0 +1,86 @@
+# Copyright (C) 2018  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details.
+
+# Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+# File: D:\Programming\KyoumaCPU\KCPU\KCPU.csv
+# Generated on: Tue Aug 27 16:21:42 2019
+
+# Note: The column header names should not be changed if you wish to import this .csv file into the Quartus Prime software.
+
+To,Direction,Location,I/O Bank,VREF Group,Fitter Location,I/O Standard,Reserved,Current Strength,Slew Rate,Differential Pair,Strict Preservation
+buttons[3],Input,PIN_91,6,B6_N0,PIN_91,2.5 V,,,,,
+buttons[2],Input,PIN_90,6,B6_N0,PIN_90,2.5 V,,,,,
+buttons[1],Input,PIN_89,5,B5_N0,PIN_89,2.5 V,,,,,
+buttons[0],Input,PIN_88,5,B5_N0,PIN_88,2.5 V,,,,,
+clk,Input,PIN_23,1,B1_N0,PIN_23,2.5 V,,,,,
+dr[31],Output,,,,PIN_46,,,,,,
+dr[30],Output,,,,PIN_58,,,,,,
+dr[29],Output,,,,PIN_141,,,,,,
+dr[28],Output,,,,PIN_10,,,,,,
+dr[27],Output,,,,PIN_31,,,,,,
+dr[26],Output,,,,PIN_43,,,,,,
+dr[25],Output,,,,PIN_144,,,,,,
+dr[24],Output,,,,PIN_11,,,,,,
+dr[23],Output,,,,PIN_100,,,,,,
+dr[22],Output,,,,PIN_60,,,,,,
+dr[21],Output,,,,PIN_54,,,,,,
+dr[20],Output,,,,PIN_51,,,,,,
+dr[19],Output,,,,PIN_53,,,,,,
+dr[18],Output,,,,PIN_44,,,,,,
+dr[17],Output,,,,PIN_143,,,,,,
+dr[16],Output,,,,PIN_38,,,,,,
+dr[15],Output,,,,PIN_55,,,,,,
+dr[14],Output,,,,PIN_52,,,,,,
+dr[13],Output,,,,PIN_1,,,,,,
+dr[12],Output,,,,PIN_142,,,,,,
+dr[11],Output,,,,PIN_42,,,,,,
+dr[10],Output,,,,PIN_49,,,,,,
+dr[9],Output,,,,PIN_119,,,,,,
+dr[8],Output,,,,PIN_39,,,,,,
+dr[7],Output,,,,PIN_98,,,,,,
+dr[6],Output,,,,PIN_50,,,,,,
+dr[5],Output,,,,PIN_34,,,,,,
+dr[4],Output,,,,PIN_32,,,,,,
+dr[3],Output,,,,PIN_138,,,,,,
+dr[2],Output,,,,PIN_33,,,,,,
+dr[1],Output,,,,PIN_28,,,,,,
+dr[0],Output,,,,PIN_59,,,,,,
+lcdCtrl[2],Output,PIN_143,8,B8_N0,PIN_71,,,,,,
+lcdCtrl[1],Output,PIN_138,8,B8_N0,PIN_65,,,,,,
+lcdCtrl[0],Output,PIN_141,8,B8_N0,PIN_83,,,,,,
+lcdDataInout[7],Bidir,PIN_11,1,B1_N0,PIN_75,,,,,,
+lcdDataInout[6],Bidir,PIN_7,1,B1_N0,PIN_72,,,,,,
+lcdDataInout[5],Bidir,PIN_10,1,B1_N0,PIN_80,,,,,,
+lcdDataInout[4],Bidir,PIN_2,1,B1_N0,PIN_70,,,,,,
+lcdDataInout[3],Bidir,PIN_3,1,B1_N0,PIN_74,,,,,,
+lcdDataInout[2],Bidir,PIN_144,8,B8_N0,PIN_77,,,,,,
+lcdDataInout[1],Bidir,PIN_1,1,B1_N0,PIN_73,,,,,,
+lcdDataInout[0],Bidir,PIN_142,8,B8_N0,PIN_76,,,,,,
+leds[3],Output,PIN_84,5,B5_N0,PIN_84,2.5 V,,,,,
+leds[2],Output,PIN_85,5,B5_N0,PIN_85,2.5 V,,,,,
+leds[1],Output,PIN_86,5,B5_N0,PIN_86,2.5 V,,,,,
+leds[0],Output,PIN_87,5,B5_N0,PIN_87,2.5 V,,,,,
+rst,Input,PIN_25,2,B2_N0,PIN_25,2.5 V,,,,,
+ssDig[3],Output,PIN_137,8,B8_N0,PIN_137,2.5 V,,,,,
+ssDig[2],Output,PIN_136,8,B8_N0,PIN_136,2.5 V,,,,,
+ssDig[1],Output,PIN_135,8,B8_N0,PIN_135,2.5 V,,,,,
+ssDig[0],Output,PIN_133,8,B8_N0,PIN_133,2.5 V,,,,,
+ssSeg[7],Output,PIN_127,7,B7_N0,PIN_127,2.5 V,,,,,
+ssSeg[6],Output,PIN_124,7,B7_N0,PIN_124,2.5 V,,,,,
+ssSeg[5],Output,PIN_126,7,B7_N0,PIN_126,2.5 V,,,,,
+ssSeg[4],Output,PIN_132,8,B8_N0,PIN_132,2.5 V,,,,,
+ssSeg[3],Output,PIN_129,8,B8_N0,PIN_129,2.5 V,,,,,
+ssSeg[2],Output,PIN_125,7,B7_N0,PIN_125,2.5 V,,,,,
+ssSeg[1],Output,PIN_121,7,B7_N0,PIN_121,2.5 V,,,,,
+ssSeg[0],Output,PIN_128,8,B8_N0,PIN_128,2.5 V,,,,,

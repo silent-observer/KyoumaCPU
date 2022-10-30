@@ -1,0 +1,24 @@
+{
+    "name": "language-kasm",
+    "description": "Kyouma Assembly language support",
+    "version": "0.0.1",
+    "publisher": "SilentObserver",
+    "engines": {
+        "vscode": "0.10.x"
+    },
+    "contributes": {
+        "languages": [{
+            "id": "kasm",
+            "aliases": ["KASM", "kasm"],
+            "extensions": [".kasm"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [
+            {
+                "language": "kasm",
+                "scopeName": "source.kasm",
+                "path": "./syntaxes/kasm.tmLanguage.json"
+            }
+        ]
+    }
+}

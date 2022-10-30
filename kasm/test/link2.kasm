@@ -1,0 +1,6 @@
+test3:
+    LOAD R3, test1
+    LOAD R2, test2
+    JMPL test4
+test1:
+    NOP

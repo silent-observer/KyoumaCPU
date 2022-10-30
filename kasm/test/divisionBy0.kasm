@@ -1,0 +1,14 @@
+mainSupervisor:
+    LOAD R1, mainUser
+    MOV uPC, sR1
+    LOAD R1, 0
+    ORI SR, 0x10
+    MOV sR1, uPC
+    HALT
+
+mainUser:
+    LOAD R1, 10
+    LOAD R2, 0
+    DIVU R1, R2
+    LOAD R1, 100
+    HALT

@@ -1,0 +1,110 @@
+{
+    "scopeName": "source.kasm",
+    "patterns": [{"include": "#instruction"}],
+    "repository": {
+        "instruction": {
+            "patterns": [
+                {"include": "#line-comment"},
+                {"include": "#mnemonic"},
+                {"include": "#label-def"},
+                {"include": "#register"},
+                {"include": "#constant"},
+                {"include": "#condition"},
+                {"include": "#directive"}
+            ]
+        },
+        "line-comment": {
+            "match": ";.*",
+            "name": "comment.line.semicolon.kasm"
+        },
+        "mnemonic": {
+            "patterns": [
+                {"include": "#mnemonic-short"},
+                {"include": "#mnemonic-immediate"},
+                {"include": "#mnemonic-loadstore"},
+                {"include": "#mnemonic-misc"},
+                {"include": "#mnemonic-macro"},
+                {"include": "#mnemonic-data"}
+            ],
+            "repository": {
+                "mnemonic-short": {
+                    "match": "\\b(?i)(ADD|SUB|LSH|ASH|AND|OR|XOR|CND)\\b",
+                    "name": "keyword.mnemonic.short.kasm"
+                },
+                "mnemonic-immediate": {
+                    "match": "\\b(?i)(ADDI|SUBI|LSHI|ASHI|ANDI|ORI|XORI|LDH)\\b",
+                    "name": "keyword.mnemonic.immediate.kasm"
+                },
+                "mnemonic-loadstore": {
+                    "match": "\\b(?i)(LW|SW|SH|SB|LHU|LHS|LBU|LBS)\\b",
+                    "name": "keyword.mnemonic.loadstore.kasm"
+                },
+                "mnemonic-misc": {
+                    "match": "\\b(?i)(LDI|MLTU|MLTS|DIVU|DIVS)\\b",
+                    "name": "keyword.mnemonic.misc.kasm"
+                },
+                "mnemonic-macro": {
+                    "match": "\\b(?i)(MOV|JMP|JMPL|HALT|NOP|LOAD|CMP)\\b",
+                    "name": "keyword.mnemonic.macro.kasm"
+                },
+                "mnemonic-data": {
+                    "match": "\\b(?i)(DB|DH|DW)\\b",
+                    "name": "keyword.mnemonic.data.kasm"
+                }
+            }
+        },
+        "label-def": {
+            "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*(?=:)",
+            "name": "entity.name.function.kasm"
+        },
+        "register": {
+            "match": "\\b(?i)[us]?(R[0-9]|R1[0-5]|LR|SR|FP|SP|PC|HI|LO)\\b",
+            "name": "variable.language.register.kasm"
+        },
+        "constant": {
+            "patterns": [
+                {"include": "#constant-decimal"},
+                {"include": "#constant-hex"},
+                {"include": "#constant-oct"},
+                {"include": "#constant-bin"},
+                {"include": "#constant-language"},
+                {"include": "#constant-string"}
+            ],
+            "repository": {
+                "constant-decimal": {
+                    "match": "\\b(0|[+-]?[1-9][0-9_]*)\\b",
+                    "name": "constant.numeric.decimal.kasm"
+                },
+                "constant-hex": {
+                    "match": "\\b0x[0-9A-Fa-f_]+\\b",
+                    "name": "constant.numeric.hex.kasm"
+                },
+                "constant-oct": {
+                    "match": "\\b0o[0-7_]+\\b",
+                    "name": "constant.numeric.oct.kasm"
+                },
+                "constant-bin": {
+                    "match": "\\b0b[01_]+\\b",
+                    "name": "constant.numeric.bin.kasm"
+                },
+                "constant-language": {
+                    "match": "\\b(?i)(LCD_(CTRL|DATA)|CPU_SPEED(_SLOW|_MANUAL|_MAX)?)\\b",
+                    "name": "constant.language.kasm"
+                },
+                "constant-string": {
+                    "name": "string.quoted.double.kasm",
+                    "begin": "\"",
+                    "end": "\""
+                }
+            }
+        },
+        "condition": {
+            "match": "\\?(?i)(N?Z|N?C|V|EQ|NE|LT|GE)",
+            "name": "keyword.control.condition.kasm"
+        },
+        "directive": {
+            "match": "#(?i)(include|text|data|rodata|bss|align)\\b",
+            "name": "keyword.control.directive.kasm"
+        }
+    }
+}

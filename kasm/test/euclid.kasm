@@ -1,0 +1,22 @@
+main:
+    LDI R1, 10662
+    LDI R2, 978
+_euclid:
+    DIVU R1, R2
+    MOV R1, R2
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    NOP
+    MOV R2, HI
+    ADD R2, R0
+    JMP?NZ _euclid
+    LDH R2, 0x400
+    SW (R2), R1
+    HALT

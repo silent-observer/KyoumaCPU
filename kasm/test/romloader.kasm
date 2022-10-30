@@ -1,0 +1,76 @@
+start:
+    LOAD SP, 0xDFFFFFFC
+    MOV uSP, sSP
+    LDH SP, 0x3BFF
+    LOAD R1, elfFile ;  ELF address
+loadELF:
+    ; Check ELF header
+    LOAD R2, elfFileHeader
+    LOAD R3, 0x18
+    LOAD R7, 0x04
+_checkLoop: 
+    LW R5, (R1)
+    LW R6, (R2)
+    ADD R1, R7 ; R1 += 4
+    ADD R2, R7 ; R2 += 4
+    CMP R5, R6
+    JMP?NZ error
+    SUB R3, R7 ; R3 -= 4
+    JMP?NZ _checkLoop
+    ; Load entry point
+    LW R2, (R1)
+    MOV uPC, sR2
+    ; Load segment count
+    LHU R2, (R1+0x14) ; R2 <- segment count
+    CMP R2
+    JMP?Z error
+    ; Read program headers
+    ADDI R1, 0x1C ; R1 = 0x34
+_headerLoop:
+    LW R3, (R1) ; R3 <- p_type
+    CMP R3, 0x01
+    JMP?NZ _skipHeader
+    LW R3, (R1+0x04) ; R3 <- p_offset
+    LW R4, (R1+0x08) ; R4 <- p_vaddr
+    LW R5, (R1+0x10) ; R5 <- p_filesz
+    CMP R5
+    JMP?Z _segmentLoop1End
+    ADDI R3, elfFile
+_segmentLoop1: 
+    LW R6, (R3)
+    SW (R4), R6
+    ADD R3, R7 ; R3 += 4
+    ADD R4, R7 ; R3 += 4
+    SUB R5, R7 ; R4 -= 4
+    JMP?NZ _segmentLoop1
+_segmentLoop1End:
+    LW R5, (R1+0x14) ; R5 <- p_memsz
+    LW R3, (R1+0x10) ; R3 <- p_filesz
+    SUB R5, R3
+    JMP?Z _segmentLoop2End
+_segmentLoop2:
+    SW (R4), R0
+    ADD R4, R7 ; R3 += 4
+    SUB R5, R7 ; R4 -= 4
+    JMP?NZ _segmentLoop2
+_segmentLoop2End:
+_skipHeader:
+    ADDI R1, 0x20
+    SUBI R2, 1
+    JMP?NZ _headerLoop
+    ; Call ELF's main
+    LOAD R1, success
+    MOV uLR, sR1
+    ORI SR, 0x10
+error:
+    HALT
+    NOP
+    NOP
+success:
+    HALT
+
+elfFileHeader:
+    DB 0x7F, 0x45, 0x4C, 0x46, 0x01, 0x01, 0x01, 0x00
+    DB 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    DB 0x02, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00
+elfFile:
