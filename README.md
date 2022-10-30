@@ -67,6 +67,7 @@ Each condition specifier is 4 bits long.
   | `101`     | `?GE`           | Execute if negative flag is not set
   | `110`     | `?C`            | Execute if carry flag is set
   | `111`     | `?NC`           | Execute if carry flag is not set
+
   In assembly it combines with freeze bit like this: `ADD?NC* R1, R2, R3`
 
 ## Instruction set
@@ -93,6 +94,7 @@ There are multiple types of instructions:
   |`15..12`|    `11..8`    |    `7..4`     |    `3..0`     |
   |--------|---------------|---------------|---------------|
   | `0111` | 1st condition | 2nd condition | 3rd condition |
+  
   It sets conditions for the following 3 instructions
 
   Also, there is `NOP` instruction. It's code is `0x0000`, so it is `ADD R0, R0, R0`. 
@@ -124,7 +126,7 @@ There are multiple types of instructions:
   |`101` | `ORI`              | Logical OR                                             | `{D} <- {S} \| I`
   |`110` | `XORI`             | Logical XOR                                            | `{D} <- {S} ^ I`
   |`111` | `LDH`              | Move immediate to high 14 bits and source to the rest  | `{D} <- {I, {S}[17..0]}`
-  
+
   _Immediate value is sign extended to 32 bits._
   _If `LDH` is passed label as an argument, immediate value is high 13 bits of address_
 
